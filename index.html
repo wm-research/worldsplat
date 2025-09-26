@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorldSplat: Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving</title>
+    <style>
+        /* ========== Hero 区块样式 ========== */
+        .hero {
+            background: linear-gradient(
+                to right,
+                rgba(175, 238, 238, 0.6),
+                rgba(251, 207, 251, 0.6)
+            );
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0 0 12px 0;
+            line-height: 1.3;
+        }
+        .hero-title-highlight {
+            color: #007bff;
+        }
+        .hero-authors {
+            font-size: 1rem;
+            color: #024fa1;
+            margin-bottom: 12px;
+        }
+        .hero-affiliations {
+            display: block;
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 4px;
+        }
+        .hero-buttons {
+            display: inline-flex;
+            gap: 10px;
+        }
+        .hero-buttons .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.2s ease;
+        }
+        .hero-buttons .btn-arxiv {
+            background-color: #fcb636;
+        }
+        .hero-buttons .btn-arxiv:hover {
+            background-color: #e0a22f;
+        }
+        .hero-buttons .btn-code {
+            background-color: #28a745;
+        }
+        .hero-buttons .btn-code:hover {
+            background-color: #218838;
+        }
+        .hero-buttons .btn-citation {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        }
+        .hero-buttons .btn-citation:hover {
+            opacity: 0.9;
+        }
+
+        /* ========== 全局正文样式 ========== */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: left;
+        }
+        .affiliations {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .affiliations p {
+            margin: 5px 0;
+        }
+        .conference {
+            font-size: 24px;
+            color: #000;
+            font-weight: bold;
+            margin: 10px 0 20px;
+            font-style: normal;
+        }
+        h1 {
+            font-size: 28px;
+        }
+        .authors, .affiliations, .contact, .links {
+            margin-bottom: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+        .authors sup, .affiliations sup {
+            font-size: 14px;
+        }
+        .abstract {
+            max-width: 900px;
+            text-align: justify;
+            margin: 0 auto 20px;
+        }
+        .video-container {
+            position: relative;
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+        .video-container video {
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+        }
+        .video-caption {
+            position: absolute;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+        .top-left {
+            top: -35px;
+            left: 177px;
+            transform: translate(0, 0);
+        }
+        .top-right {
+            top: -35px;
+            right: 100px;
+            transform: translate(0, 0);
+        }
+        .bottom-left {
+            bottom: 32px;
+            left: 147px;
+            transform: translate(0, 0);
+        }
+        .bottom-right {
+            bottom: 32px;
+            right: 147px;
+            transform: translate(0, 0);
+        }
+        .image-container img {
+            image-rendering: auto;
+            max-width: 900px;
+            width: 100%;
+            height: auto;
+            margin: auto;
+            display: block;
+        }
+        .image-caption {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #333;
+            padding: 10px 20px;
+        }
+        .grid-image-container {
+            position: relative;
+            text-align: center;
+            max-width: 900px;
+            margin: auto;
+        }
+        .grid-image-container img {
+            width: 100%;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .image-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #222;
+        }
+        .image-labels span {
+            flex: 1;
+            text-align: center;
+        }
+        .flow-comparison-container {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            grid-template-rows: auto auto;
+            max-width: 900px;
+            margin: 0 auto;
+            gap: 0;
+        }
+        .row-label {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 15px;
+            color: #333;
+            text-align: center;
+            align-self: center;
+            justify-self: center;
+        }
+        .empty-cell {
+        }
+        .flow-image {
+            grid-column: 2 / span 1;
+            grid-row: 1 / span 2;
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+        .image-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .image-row img {
+            max-width: 420px;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .bibtex-section {
+            max-width: 900px;
+            margin: 40px auto;
+            font-family: Arial, sans-serif;
+        }
+        .bibtex-section h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: left;
+            color: #333;
+        }
+        .bibtex-container {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre;
+            text-align: left;
+            color: #222;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== Hero 区块 ========== -->
+    <header class="hero">
+        <h1>
+            <span class="hero-title-highlight">WorldSplat:</span>
+            Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving
+        </h1>
+        <div class="hero-authors">
+            Ziyue Zhu<sup>1</sup> · Zhanqian Wu<sup>2</sup> · Zhenxin Zhu<sup>2</sup> · Lijun Zhou<sup>2</sup> · Haiyang Sun<sup>2†</sup> · Bing Wang<sup>2</sup> · Kun Ma<sup>2</sup> · Guang Chen<sup>2</sup> · Hangjun Ye<sup>2</sup> · Jin Xie<sup>3✉</sup> · Yang Jian<sup>1✉</sup>
+            <br>
+            <span class="hero-affiliations">
+                <sup>1</sup> Nankai University   ·   <sup>2</sup> Xiaomi EV   ·   <sup>3</sup> Nanjing University, Suzhou
+            </span>
+            <span class="hero-affiliations">
+                <sup>✉</sup> Corresponding Author   ·   <sup>†</sup> Project Leader
+            </span>
+        </div>
+        <div class="hero-buttons">
+            <a href="https://arxiv.org/abs/your-paper-id" class="btn btn-arxiv" target="_blank">
+                📄 arXiv
+            </a>
+            <a href="https://github.com/wm-research/worldsplat" class="btn btn-code" target="_blank">
+                💻 Code
+            </a>
+            <a href="#bibtex" class="btn btn-citation" target="_blank">
+                📑 BibTeX
+            </a>
+        </div>
+    </header>
+
+    <!-- ====== 正文 Container 区块 ========== -->
+    <div class="container">
+        <h2 style="text-align: center;">Abstract</h2>
+        <p class="abstract">
+            We propose <strong>WorldSplat</strong> , a novel feed-forward framework for 4D driving-scene generation. Our approach effectively generates consistent multi-track videos through two key steps:
+            <br>
+            (<i>i</i>) We introduce a 4D-aware latent diffusion model integrating multi-modal information to produce pixel-aligned 4D Gaussians in a feed-forward manner.
+            <br>
+            (<i>ii</i>) Subsequently, we refine the novel view videos rendered from these Gaussians using a enhanced video diffusion model.
+            <br>
+            <strong>WorldSplat</strong> effectively generates high-fidelity, temporally and spatially consistent multi-track novel view driving videos.
+        </p>
+
+        <div style="height: 10px;"></div>
+
+        <h2 style="text-align: center;">Motivation</h2>
+        <div class="image-container">
+            <img src="assets/teaser.png" alt="Motivation">
+        </div>
+        <p class="image-caption">
+            Comparison of different driving world models. Previous driving world models focus on video generation, while our method directly creates controllable 4D Gaussians in a feed-forward manner, 
+            enabling the production of novel-view videos (e.g. shifting ego trajectory ±N m) with spatiotemporal consistency.
+        </p>
+
+        <div style="height: 10px;"></div>
+
+
+        <h2 style="text-align: center;">Method Overview</h2>
+        <div class="image-container">
+            <img src="assets/framework.png" alt="Method Overview">
+        </div>
+        <p class="image-caption">
+            The overview of our framework: (1) Employing a 4D-aware diffusion model to generate a multi-modal latent containing RGB, depth, and dynamic information.
+            (2) Predicting pixel-aligned 3D Gaussians from the denoised latent using our feed-forward latent decoder.
+            Then, 3D semantic Gaussians are decoded. 
+            (3) Aggregating the 3D Gaussians with dynamic-static decomposition to form 4D Gaussians and rendering novel-view videos.
+            (4) Improving the spatial resolution and temporal consistency of the rendered videos with an enhanced diffusion model.
+            The <span style="color:red;">↑</span> arrow and the ↑ ones denote the  <span style="color:red;">train-only</span> and inference, respectively.
+        </p>
+
+        <div style="height: 10px;"></div>
+
+        <h2 style="text-align: center;">Gaussians Visualization</h2>
+        <div class="image-container">
+            <img src="assets/vis_gs.png" alt="Gaussian Visualization">
+        </div>
+        <p class="image-caption">
+            Visualization of our generated 4D Gaussian representation, which serves as the basis for rendering novel-trajectory videos.
+        </p>
+
+        <div style="height: 10px;"></div>
+
+        <h2 style="text-align: center;">Video Demo</h2>
+        <div style="height: 0px;"></div>
+        <div class="video-container">
+            <video autoplay muted loop controls>
+                <source src="assets/3_shift±2m.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div style="height: 5px;"></div>
+
+        <div class="video-container" style="margin-top: 5px;">
+            <video autoplay muted loop controls>
+                <source src="assets/7_shift±2m.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p style="margin-top: 5px;">
+                Video demo of generated driving videos under a 2 m left–right ego shift.
+            </p>
+        </div>
+
+        <div style="height: 10px;"></div>
+
+        <h2 style="text-align: center;">Comparison with Other Driving World Models</h2>
+        <div class="image-container">
+            <img src="assets/gen_fig.png" alt="Method Overview">
+        </div>
+        <p class="image-caption">
+            Comparison with MagicDrive and Panacea. The top row shows real frames, the second row the corresponding sketches and bounding-box controls. 
+            Red boxes highlight areas where our method achieves the most notable improvements.
+        </p>
+        <div class="image-container">
+            <img src="assets/gen_tab.png" alt="Method Overview">
+        </div>
+        <p class="image-caption">
+            Video generation comparison on the nuScenes validation set, with green and blue highlighting the best and second-best values, respectively.
+        </p>
+
+        <h2 style="text-align: center;">Comparison with Opimization-based Urban Reconstrution Models</h2>
+        <div class="image-container">
+            <img src="assets/novel_fig.png" alt="Method Overview">
+        </div>
+        <p class="image-caption">
+            Qualitative comparison of our novel view synthesis against the state-of-the-art urban reconstruction method Omnire. 
+            We translate the ego-vehicle by ±2m to generate the novel viewpoints. Red boxes indicate where our method achieves the greatest improvements.
+        <div class="image-container">
+            <img src="assets/novel_tab.png" alt="Method Overview">
+        </div>
+        <p class="image-caption">
+            Quantitative results of novel-view synthesis, reporting FID and FVD under viewpoint shifts of ±1, ±2, and ±4 meters. Baseline metrics are taken from DiST-4D
+        </p>
+
+        <h2 style="text-align: center;">Benefit on Downstream Driving Tasks</h2>
+        <div class="image-container">
+            <img src="assets/downstream.png" alt="Method Overview">
+        </div>
+        <p class="image-caption">
+            The applications of our generated data on the downstream 3D object detection and bev map segmentation.
+        </p>
+        
+       
+
+        <div class="bibtex-section" id="bibtex" style="max-width: 1400px; margin: 40px auto;">
+            <h3>BibTeX</h3>
+            <pre style="
+                width: 1300px;           /* 设置你希望的宽度 */
+                background: #f8f8f8;
+                padding: 15px;
+                border-radius: 6px;
+                white-space: pre;        /* 不自动换行 */
+                overflow: visible;       /* 不出现滚动条 */
+                font-family: monospace;
+                font-size: 14px;">
+          @misc{zhu2026worldsplat,
+            title        = {WorldSplat: Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving},
+            author       = {Ziyue Zhu and Zhanqian Wu and Zhenxin Zhu and Lijun Zhou and Haiyang Sun and Bing Wang and Kun Ma and Guang Chen and Hangjun Ye and Jin Xie and Jian Yang},
+            year         = {2026},
+            note         = {Under review at the International Conference on Learning Representations (ICLR) 2026},
+            url          = {https://github.com/wm-research/worldsplat}
+          }
+            </pre>
+          </div>
+          
+          
+    </div>
+</body>
+</html>
+```
