@@ -1,7 +1,7 @@
 # WorldSplat: Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving
 
 <p align="center">
-  <img src="docs/assets/teaser.png" alt="WorldSplat Teaser" width="50%">
+  <img src="docs/assets/teaser.png" alt="WorldSplat Teaser" width="100%">
 </p>
 
 > [Project Page](https://wm-research.github.io/worldsplat) | [arXiv (coming soon)](https://arxiv.org/abs/xxxx.xxxxx)  
@@ -47,3 +47,4 @@ If you find this work useful, please cite:
   note         = {Under review at the International Conference on Learning Representations (ICLR) 2026},
   url          = {https://github.com/wm-research/worldsplat}
 }
+
