@@ -1,7 +1,7 @@
 # WorldSplat: Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving
 
 <p align="center">
-  <img src="docs/assets/teaser.png" alt="WorldSplat Teaser" width="50%">
+  <img src="docs/assets/teaser.png" alt="WorldSplat Teaser" width="100%">
 </p>
 
 > [Project Page](https://wm-research.github.io/worldsplat) | [arXiv](https://www.arxiv.org/abs/2509.23402)  
@@ -49,4 +49,5 @@ If you find this work useful, please cite:
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2509.23402}, 
 }
+
 
