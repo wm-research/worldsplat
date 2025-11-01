@@ -157,15 +157,16 @@
             transform: translate(0, 0);
         }
         .image-container img {
-            image-rendering: auto;
-            max-width: 900px;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            max-width: 1000px;
             width: 100%;
             height: auto;
             margin: auto;
             display: block;
         }
         .image-caption {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             font-size: 15px;
             line-height: 1.6;
@@ -357,37 +358,114 @@
             Visualization of our generated 4D Gaussian representation, which serves as the basis for rendering novel-trajectory videos.
         </p>
 
-        <div style="height: 10px;"></div>
+        <div style="height: 30px;"></div>
 
-        <h2 style="text-align: center;">Video Demo</h2>
-        <div style="height: 0px;"></div>
-        <div class="video-container">
-            <video autoplay muted loop controls>
+        <h2 style="text-align: center;">Generated-Real Video Comparisons</h2>
+        <p style="text-align: center; margin-top: 10px; max-width: 900px; margin-left: auto; margin-right: auto; color: #555;">
+            For each example, the upper video shows the generated result, and the lower video shows the corresponding real footage.
+        </p>
+
+        <!-- Comparison 1 -->
+        <h3 style="text-align: center; margin-top: 20px;">Comparison 1</h3>
+        <div style="max-width: 1200px; margin: 10px auto; text-align: center;">
+            <video autoplay muted loop controls style="width: 100%; border-radius: 6px; display: block;" playbackRate="2" onloadedmetadata="this.playbackRate = 2.0;">
+                <source src="assets/gen1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p style="text-align: center; margin-top: 8px; font-size: 14px; color: #555;">Generated (upper) vs Real (lower)</p>
+        </div>
+
+        <div style="height: 30px;"></div>
+
+        <!-- Comparison 2 -->
+        <h3 style="text-align: center;">Comparison 2</h3>
+        <div style="max-width: 1200px; margin: 10px auto; text-align: center;">
+            <video autoplay muted loop controls style="width: 100%; border-radius: 6px; display: block;" playbackRate="2" onloadedmetadata="this.playbackRate = 2.0;">
+                <source src="assets/gen2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p style="text-align: center; margin-top: 8px; font-size: 14px; color: #555;">Generated (upper) vs Real (lower)</p>
+        </div>
+
+        <div style="height: 30px;"></div>
+
+        <!-- Comparison 3 -->
+        <h3 style="text-align: center;">Comparison 3</h3>
+        <div style="max-width: 1200px; margin: 10px auto; text-align: center;">
+            <video autoplay muted loop controls style="width: 100%; border-radius: 6px; display: block;" playbackRate="2" onloadedmetadata="this.playbackRate = 2.0;">
+                <source src="assets/gen3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p style="text-align: center; margin-top: 8px; font-size: 14px; color: #555;">Generated (upper) vs Real (lower)</p>
+        </div>
+
+        <div style="height: 30px;"></div>
+
+        <h2 style="text-align: center;">Novel View Video Generation</h2>
+        <p style="text-align: center; margin-top: 10px; max-width: 900px; margin-left: auto; margin-right: auto; color: #555;">
+            Video demos of generated driving videos under a 2 m left–right ego shift, along with their corresponding 3D Gaussian representations.
+        </p>
+
+        <!-- Example 1 -->
+        <h3 style="text-align: center; margin-top: 20px;">Example 1</h3>
+        <div style="max-width: 700px; margin: 10px auto; text-align: center;">
+            <video autoplay muted loop controls style="width: 100%; border-radius: 6px; display: block;">
+                <source src="assets/3_Gs.mkv" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p style="text-align: center; margin-top: 8px; font-size: 14px; color: #555;">3D Gaussians Visualization</p>
+        </div>
+        <div style="max-width: 1200px; margin: 15px auto; text-align: center;">
+            <video autoplay muted loop controls style="width: 100%; border-radius: 6px; display: block;">
                 <source src="assets/3_shift±2m.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+            <p style="text-align: center; margin-top: 8px; font-size: 14px; color: #555;">Rendered Novel-View Video</p>
         </div>
 
-        <div style="height: 5px;"></div>
+        <div style="height: 30px;"></div>
 
-        <div class="video-container" style="margin-top: 5px;">
-            <video autoplay muted loop controls>
+        <!-- Example 2 -->
+        <h3 style="text-align: center;">Example 2</h3>
+        <div style="max-width: 700px; margin: 10px auto; text-align: center;">
+            <video autoplay muted loop controls style="width: 100%; border-radius: 6px; display: block;">
+                <source src="assets/7_Gs.mkv" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p style="text-align: center; margin-top: 8px; font-size: 14px; color: #555;">3D Gaussians Visualization</p>
+        </div>
+        <div style="max-width: 1200px; margin: 15px auto; text-align: center;">
+            <video autoplay muted loop controls style="width: 100%; border-radius: 6px; display: block;">
                 <source src="assets/7_shift±2m.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <p style="margin-top: 5px;">
-                Video demo of generated driving videos under a 2 m left–right ego shift.
-            </p>
+            <p style="text-align: center; margin-top: 8px; font-size: 14px; color: #555;">Rendered Novel-View Video</p>
         </div>
 
-        <div style="height: 10px;"></div>
+        <div style="height: 30px;"></div>
+
+        <h2 style="text-align: center;">Comparison with Opimization-based Urban Reconstrution Models</h2>
+        <div class="image-container">
+            <img src="assets/novel_fig.png" alt="Method Overview">
+        </div>
+        <p class="image-caption">
+            Qualitative comparison of our novel view synthesis against the state-of-the-art urban reconstruction method Omnire.
+            We translate the ego-vehicle by ±2m to generate the novel viewpoints. Red boxes indicate where our method achieves the greatest improvements.
+        <div class="image-container">
+            <img src="assets/novel_tab.png" alt="Method Overview">
+        </div>
+        <p class="image-caption">
+            Quantitative results of novel-view synthesis, reporting FID and FVD under viewpoint shifts of ±1, ±2, and ±4 meters. Baseline metrics are taken from DiST-4D
+        </p>
+
+        <div style="height: 30px;"></div>
 
         <h2 style="text-align: center;">Comparison with Other Driving World Models</h2>
         <div class="image-container">
             <img src="assets/gen_fig.png" alt="Method Overview">
         </div>
         <p class="image-caption">
-            Comparison with MagicDrive and Panacea. The top row shows real frames, the second row the corresponding sketches and bounding-box controls. 
+            Comparison with MagicDrive and Panacea. The top row shows real frames, the second row the corresponding sketches and bounding-box controls.
             Red boxes highlight areas where our method achieves the most notable improvements.
         </p>
         <div class="image-container">
@@ -397,19 +475,7 @@
             Video generation comparison on the nuScenes validation set, with green and blue highlighting the best and second-best values, respectively.
         </p>
 
-        <h2 style="text-align: center;">Comparison with Opimization-based Urban Reconstrution Models</h2>
-        <div class="image-container">
-            <img src="assets/novel_fig.png" alt="Method Overview">
-        </div>
-        <p class="image-caption">
-            Qualitative comparison of our novel view synthesis against the state-of-the-art urban reconstruction method Omnire. 
-            We translate the ego-vehicle by ±2m to generate the novel viewpoints. Red boxes indicate where our method achieves the greatest improvements.
-        <div class="image-container">
-            <img src="assets/novel_tab.png" alt="Method Overview">
-        </div>
-        <p class="image-caption">
-            Quantitative results of novel-view synthesis, reporting FID and FVD under viewpoint shifts of ±1, ±2, and ±4 meters. Baseline metrics are taken from DiST-4D
-        </p>
+        <div style="height: 30px;"></div>
 
         <h2 style="text-align: center;">Benefit on Downstream Driving Tasks</h2>
         <div class="image-container">
@@ -421,27 +487,17 @@
         
        
 
-        <div class="bibtex-section" id="bibtex" style="max-width: 1400px; margin: 40px auto;">
+        <div class="bibtex-section" id="bibtex">
             <h3>BibTeX</h3>
-            <pre style="
-                width: 1300px;           /* 设置你希望的宽度 */
-                background: #f8f8f8;
-                padding: 15px;
-                border-radius: 6px;
-                white-space: pre;        /* 不自动换行 */
-                overflow: visible;       /* 不出现滚动条 */
-                font-family: monospace;
-                font-size: 14px;">
-          @misc{zhu2025worldsplatgaussiancentricfeedforward4d,
-      title={WorldSplat: Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving}, 
+            <div class="bibtex-container">@misc{zhu2025worldsplatgaussiancentricfeedforward4d,
+      title={WorldSplat: Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving},
       author={Ziyue Zhu and Zhanqian Wu and Zhenxin Zhu and Lijun Zhou and Haiyang Sun and Bing Wan and Kun Ma and Guang Chen and Hangjun Ye and Jin Xie and jian Yang},
       year={2025},
       eprint={2509.23402},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2509.23402}, 
-}
-            </pre>
+      url={https://arxiv.org/abs/2509.23402},
+}</div>
           </div>
           
           

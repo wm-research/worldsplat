@@ -4,7 +4,7 @@
   <img src="docs/assets/teaser.png" alt="WorldSplat Teaser" width="50%">
 </p>
 
-> [Project Page](https://wm-research.github.io/worldsplat) | [arXiv (coming soon)](https://arxiv.org/abs/xxxx.xxxxx)  
+> [Project Page](https://wm-research.github.io/worldsplat) | [arXiv](https://www.arxiv.org/abs/2509.23402)  
 
 WorldSplat is a **feed-forward 4D scene generation framework** designed for autonomous driving.  
 It introduces a **Gaussian-centric representation** that directly produces controllable 4D Gaussians from multi-modal latent diffusion features, enabling **spatially and temporally consistent novel-view driving videos** under user-defined trajectory shifts.
