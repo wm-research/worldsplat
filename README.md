@@ -1,4 +1,4 @@
-# WorldSplat: Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving
+# [🎉ICLR 2026!]WorldSplat: Gaussian-Centric Feed-Forward 4D Scene Generation for Autonomous Driving
 
 <p align="center">
   <img src="docs/assets/teaser.png" alt="WorldSplat Teaser" width="100%">
@@ -27,11 +27,18 @@ It introduces a **Gaussian-centric representation** that directly produces contr
 
 ---
 
-## 📦 Code Availability
+## News
+`[2026/01/26]` WorldSplat is accepted by ICLR 2026🎉🎉🎉!
 
-🚧 **Code is coming soon!**  
-We are cleaning up the implementation and will release the full training and inference pipeline shortly.  
-Stay tuned and watch this repository for updates.
+`[2025/05/09]` [ArXiv](https://www.arxiv.org/abs/2509.23402) paper release. Models/Code are coming soon. Please stay tuned! ☕️
+
+---
+
+## 📦 Updates
+- [x] Release Paper   
+- [ ] Release Full Models  
+- [ ] Release Inference Framework 
+- [ ] Release Training Framework 
 
 ---
 
